@@ -1,0 +1,27 @@
+<apex:page controller="SearchAccountController">
+    <apex:form >
+    	<apex:pageBlock title="Search">
+            <apex:pageBlockSection >
+            	<apex:selectList size="1" value="{!selectedValue}">
+                    <apex:selectOptions value="{!options}" />                	 
+            	</apex:selectList>
+            	<apex:inputText value="{!keyword}"/>
+            </apex:pageBlockSection>
+            
+            <apex:commandButton action="{!search}" value="Search"/>
+        </apex:pageBlock>
+        <apex:pageBlock title="Details" rendered="{!activation}" id="pbId">
+            <apex:pageBlockSection >
+            	<apex:pageBlockTable value="{!accountRecords}" var="account"  >
+            		<apex:column value="{!account.Name}"/>
+            	</apex:pageBlockTable>
+            </apex:pageBlockSection>
+            <apex:commandButton status="fetchStatus" reRender="pbId" value="Next" action="{!setCon.next}"  disabled="{!NOT(setCon.hasNext)}" title="Next Page"/>
+            <apex:commandButton status="fetchStatus" reRender="pbId" value="Previous" action="{!setCon.previous}" disabled="{!NOT(setCon.hasPrevious)}" title="Previous  Page"/>
+        </apex:pageBlock>
+            
+            <!--<apex:commandButton status="fetchStatus" reRender="pbId" value="First" action="{!setCon.first}" disabled="{!!setCon.hasPrevious}" title="First Page"/>  
+            <apex:commandButton status="fetchStatus" reRender="pbId" value="Next" action="{!setCon.next}" disabled="{!!setCon.hasNext}" title="Next Page"/>-->
+       
+    </apex:form>
+</apex:page>

@@ -1,0 +1,44 @@
+<apex:page standardController="Class__c" recordSetVar="classes" extensions="ClassListController" id="mainPage">
+    <apex:outputPanel id="outerPanel">
+    
+    <apex:outputPanel id="main">
+        
+        
+            <apex:form >
+                <apex:pageBlock id="table">
+                    <apex:pageBlockSection >
+                        <apex:pageBlockTable value="{!classes}" var="c" >
+                            <apex:column value="{!c.Id}"/>
+                            <apex:column value="{!c.Name}"/>
+                            <apex:column value="{!c.MaxLimit__c}"/>
+                            <apex:column value="{!c.Number_Of_Students__c}"/>
+                            <apex:column >
+                                <apex:commandLink value="Edit" action="{!editClass}" reRender="EditClass" >
+                                    <apex:param name="id" value="{!c.Id}"></apex:param>
+                                </apex:commandLink>
+                            </apex:column>
+                            <apex:column >
+                                <apex:commandLink value="Delete" action="{!deleteClass}" reRender="table" >
+                                    <apex:param name="id" value="{!c.Id}"></apex:param>
+                                </apex:commandLink>
+                            </apex:column>
+                        </apex:pageBlockTable>
+                    </apex:pageBlockSection>
+                </apex:pageBlock>
+            </apex:form>
+        </apex:outputPanel>
+    <apex:outputPanel id="EditClass">
+    	<apex:form rendered="{!activationFormIsVisible}">
+        	<apex:pageBlock >
+            	<apex:pageBlockSection >
+                	<apex:inputField value="{!classObj.Name}"/>
+                    <apex:inputField value="{!classObj.MaxLimit__c}"/>
+                    <apex:inputField value="{!classObj.Class_Teacher__c}"/>
+                    <apex:commandButton action="{!saveClass}" value="Save" reRender="EditClass,table"/>
+                    <apex:commandButton action="{!cancel}" value="Cancel"/>
+                </apex:pageBlockSection>
+            </apex:pageBlock>
+        </apex:form>
+    </apex:outputPanel>
+        </apex:outputPanel>
+</apex:page>
