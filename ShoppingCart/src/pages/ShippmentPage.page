@@ -1,0 +1,13 @@
+<apex:page controller="ProductListController">
+    <apex:form >
+    	<apex:pageBlock >
+        	<apex:pageBlockSection >
+            	<apex:inputField value="{!contact.Name}"/>
+                <apex:inputField value="{!contact.Shipping_Address__c}"/>
+                <apex:inputField value="{!contact.Email}"/>
+                <apex:inputField value="{!contact.MobilePhone}"/>
+            </apex:pageBlockSection>
+            <apex:commandButton value="Place Order" action="{!placeOrder}"  />
+        </apex:pageBlock>
+    </apex:form>
+</apex:page>
