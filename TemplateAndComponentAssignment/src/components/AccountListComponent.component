@@ -1,0 +1,31 @@
+<apex:component controller="AccountListController">
+    <!--<apex:attribute name="accounts" type="Account[]" assignTo="{!accountList}" description="List collection variable containing the API field names that will be displayed in the related list "></apex:attribute>-->
+    
+    <apex:pageBlock >
+    	<apex:pageBlockSection columns="1" id="account">
+            <apex:panelGrid columns="3" width="100%" cellpadding="1" cellspacing="1" rules="all">
+            	<!--<apex:outputText value="Name" style="font-weight: bold" >
+                	<apex:actionSupport action="{!sortByName}" rerender="account"/>
+                </apex:outputText> -->
+                <apex:commandLink value="Name" action="{!sortByName}" reRender="account"/>
+                <apex:outputText value="Description" style="font-weight: bold" > </apex:outputText>
+                <apex:outputText value="AccountNumber" style="font-weight: bold"></apex:outputText>
+            </apex:panelGrid>
+        	<apex:repeat value="{!Accounts}" var="a">
+            	<apex:panelGrid columns="3" width="100%" cellpadding="1" cellspacing="1" rules="all">
+                    <apex:outputText value="{!a.Name}"></apex:outputText>
+                	<apex:outputText value="{!a.Description}"></apex:outputText>
+                    <apex:outputText value="{!a.AccountNumber}" ></apex:outputText>
+                </apex:panelGrid>
+            </apex:repeat>
+            <apex:commandButton status="fetchStatus" reRender="account" value="Next" action="{!setCon.next}"  disabled="{!NOT(setCon.hasNext)}" title="Next Page"/>
+            <apex:commandButton status="fetchStatus" reRender="account" value="Previous" action="{!setCon.previous}" disabled="{!NOT(setCon.hasPrevious)}" title="Previous  Page"/>
+        	<apex:outputText >{!(setCon.pageNumber * 10)+1-10}-{!IF((setCon.pageNumber * 10)>noOfRecords, noOfRecords,
+                     (setCon.pageNumber * 10))} of {!noOfRecords}
+                </apex:outputText>
+           <apex:inputText value="{!setCon.pageNumber}" styleClass="pageInput">
+						<apex:actionSupport event="onchange" rerender="account"/>
+					</apex:inputText>of {!CEILING(setCon.ResultSize / setCon.pageSize)}
+        </apex:pageBlockSection>
+    </apex:pageBlock>
+</apex:component>
