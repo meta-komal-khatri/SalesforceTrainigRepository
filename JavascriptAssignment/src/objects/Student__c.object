@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <webLinks>
+        <fullName>Delete_Students</fullName>
+        <availability>online</availability>
+        <displayType>massActionButton</displayType>
+        <linkType>javascript</linkType>
+        <masterLabel>Delete Students</masterLabel>
+        <openType>onClickJavaScript</openType>
+        <protected>false</protected>
+        <requireRowSelection>true</requireRowSelection>
+        <url>(function(){
+var id={!GETRECORDIDS($ObjectType.Student__c)};
+if(id.length&lt;1){
+alert(&apos;No record selected&apos;);
+}
+else{
+
+window.open(&apos;/apex/SelectedStudentDeletePage?ids=&apos;+id);
+}
+})();</url>
+    </webLinks>
+    <webLinks>
+        <fullName>Edit_Student</fullName>
+        <availability>online</availability>
+        <displayType>button</displayType>
+        <linkType>javascript</linkType>
+        <masterLabel>Edit Student</masterLabel>
+        <openType>onClickJavaScript</openType>
+        <protected>false</protected>
+        <url>(
+function(){
+window.open(&apos;/apex/StudentEditPage?id={!Student__c.Id}&apos;,&apos;popup&apos;);
+
+}
+
+)();</url>
+    </webLinks>
+    <webLinks>
+        <fullName>New</fullName>
+        <availability>online</availability>
+        <displayType>button</displayType>
+        <linkType>javascript</linkType>
+        <masterLabel>New</masterLabel>
+        <openType>onClickJavaScript</openType>
+        <protected>false</protected>
+        <url>(
+function(){
+var link=&apos;{!URLFOR($Action.Class__c.New, null, null, true)}&apos;;
+window.open(link);
+}
+)();</url>
+    </webLinks>
+</CustomObject>

@@ -1,0 +1,31 @@
+<apex:page standardController="Student__c">
+    <script src="/soap/ajax/11.0/connection.js"></script>
+	<script src="/soap/ajax/11.0/apex.js"></script>
+    <script>
+    function Save(){
+        var student=new sforce.SObject('Student__c');
+        sforce.connection.sessionId= "{!$Api.Session_ID}";
+        student.Name=document.getElementById('{!$Component.form.block.section.name}').value;
+        var id='{!$CurrentPage.parameters.id}';
+        student.Id=id;
+        var result=sforce.connection.upsert("Id",[student]);
+        if (result[0].getBoolean("success")) {
+           		alert("Student is updated");
+        }else {
+            alert("failed to upadte student ");
+        }
+        window.opener.location.href="/"+id;
+        window.close();
+    }
+    </script>
+    <apex:form id="form">
+    	<apex:pageBlock id="block">
+        	<apex:pageBlocksection id="section">
+            	<apex:inputField value="{!Student__c.Name}" id="name"/>
+            </apex:pageBlocksection>
+            <apex:pageBlockButtons >
+            	<apex:commandButton value="Save" onClick="Save()"/>
+            </apex:pageBlockButtons>
+        </apex:pageBlock>
+    </apex:form>
+</apex:page>
