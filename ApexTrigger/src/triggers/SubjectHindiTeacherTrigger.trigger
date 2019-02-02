@@ -6,7 +6,7 @@ trigger SubjectHindiTeacherTrigger on Contact (before insert,before update) {
                 Subjects.addAll(c.Subjects__c.split(';'));
                 for(String s:subjects){
                     if(s=='Hindi'){
-                        c.addError('Teacher can not inserted');
+                        c.addError('Techer with hindi subject can not be inserted');
                     }
                 }
             }
@@ -21,7 +21,7 @@ trigger SubjectHindiTeacherTrigger on Contact (before insert,before update) {
                 for(String s:subjects){
                     if(s=='Hindi'){
                         Contact ct=Trigger.newMap.get(c.Id);
-                        ct.addError('Teacher Teaches Hindi');
+                        ct.addError('Teacher can not be updated as he/she teaches hindi.');
                     }
                 
                 }
