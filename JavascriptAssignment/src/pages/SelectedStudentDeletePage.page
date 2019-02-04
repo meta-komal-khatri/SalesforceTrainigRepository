@@ -1,0 +1,55 @@
+<apex:page controller="SelectedStudentsDeleteController">
+    <script src="/soap/ajax/11.0/connection.js"></script>
+	<script src="/soap/ajax/11.0/apex.js"></script>
+    <script>
+        function save1(){
+           
+            sforce.connection.sessionId= "{!$Api.Session_ID}";
+            
+            var studentId='{!$CurrentPage.parameters.ids}';
+            
+            var studentIdArray=studentId.split(",");
+            
+            var deleteIds= sforce.connection.deleteIds(studentIdArray);
+            
+            if(deleteIds.length>0){
+         		goBackToListView();
+            }
+        }
+    function getPrefix(){
+        var res = sforce.connection.describeSObjects(['Student__c']);
+        alert(res[0].fields[0].name);
+        var prefix = res[0].keyPrefix;
+        return prefix
+    }
+    function goBackToListView(){
+        sforce.connection.sessionId= "{!$Api.Session_ID}";      
+        window.opener.location.href="/"+getPrefix();
+        window.close();
+    }
+        
+    </script>
+    
+    <apex:form id="form">
+    	<apex:pageBlock id="block">
+            
+        	<apex:pageBlockSection id="section" >
+            	<apex:pageBlockTable value="{!SelectedStudents}" var="s" id="table">
+                	<apex:column value="{!s.Name}"></apex:column>
+                    <apex:column value="{!s.Sex__c}"></apex:column>
+                    <apex:column value="{!s.DOB__c}"></apex:column>
+                    <apex:column value="{!s.Class__r.Name}"/>
+                </apex:pageBlockTable>
+                
+                
+            </apex:pageBlockSection>
+            <apex:pageBlockButtons >
+            	<apex:commandButton onClick="save1()" value="Continue"/>
+                <apex:commandButton onClick="goBackToListView()" value="Cancel"/>
+                 <apex:commandbutton action="{!URLFOR($Action.Class__c.New)}" value="New Contact"/>
+            </apex:pageBlockButtons>
+            
+            
+        </apex:pageBlock>
+    </apex:form>
+</apex:page>

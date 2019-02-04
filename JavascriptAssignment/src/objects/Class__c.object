@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <webLinks>
+        <fullName>Add_New_Student</fullName>
+        <availability>online</availability>
+        <displayType>button</displayType>
+        <linkType>javascript</linkType>
+        <masterLabel>Add New Student</masterLabel>
+        <openType>onClickJavaScript</openType>
+        <protected>false</protected>
+        <url>(function(){ window.open(&quot;/apex/AddNewStudent?id={! Class__c.Id }&quot;, &quot;Class Student&quot;, &quot;height=500,width=500,&apos;height=600,width=700,left=100,top=100,resizable=no,scrollbars=yes,toolbar=no,status=no&quot;);})();</url>
+    </webLinks>
+</CustomObject>

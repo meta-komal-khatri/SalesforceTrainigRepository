@@ -1,0 +1,35 @@
+<apex:page standardController="Class__c">
+    <script src="/soap/ajax/11.0/connection.js"></script>
+	<script src="/soap/ajax/11.0/apex.js"></script>
+    <script>
+    	function save(){
+            var student=new sforce.SObject('Student__c');
+            sforce.connection.sessionId= "{!$Api.Session_ID}";
+            student.Name=document.getElementById('{!$Component.form.block.section.name}').value;
+            student.Last_Name__c=document.getElementById('{!$Component.form.block.section.name}').value;
+            student.Sex__c=document.getElementById('{!$Component.form.block.section.gender}').value;
+            var classId = '{!$CurrentPage.parameters.id}';
+            student.Class__c=classId;
+            var result=sforce.connection.create([student]);
+            if (result[0].getBoolean("success")) {
+           		alert("New Student is added ");
+           	}else {
+                alert("failed to add new Student ");
+            }
+            window.opener.location.href="/"+classId;
+       		window.close();
+        }
+    </script>
+    <apex:form id="form">
+    	<apex:pageBlock id="block">
+        	<apex:pageBlockSection id="section">
+              <!-- <apex:inputHidden value="{!$CurrentPage.parameters.id}" id="id"/>-->
+                <apex:outputText >Name   :</apex:outputText>
+                <apex:inputText id="name" />
+                <apex:outputText >Gender :</apex:outputText>
+                <apex:inputText id="gender" /><br/>
+                <apex:commandButton onClick="save()" value="Save"/>
+            </apex:pageBlockSection>
+        </apex:pageBlock>
+    </apex:form>
+</apex:page>
