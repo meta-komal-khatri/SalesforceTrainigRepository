@@ -1,0 +1,25 @@
+<apex:page StandardController="Opportunity" recordSetVar="opportnunities" extensions="BillToContactOppController" docType="html-5.0">
+    <apex:form >
+        <apex:pageBlock >
+            <apex:pageBlockSection title="Contact List">
+                <apex:pageBlockTable value="{!contacts}" var="c">
+                    <apex:column headerValue="Select">
+                        <input type="radio" />
+                        	<apex:actionSupport event="onclick" action="{!getSelected}" rerender="Selected_PBS">        
+                          		<apex:param name="v" value="{!c.Id}"/>
+                        	</apex:actionSupport>
+                      
+                    </apex:column>
+                    <apex:column value="{!c.Name}"/>
+                    <apex:column value="{!c.AccountId}"/>
+                </apex:pageBlockTable>
+                
+            </apex:pageBlockSection>
+            <apex:pageBlockButtons >
+            	<apex:commandButton action="{!save}" value="Save"/>
+                <apex:commandButton action="{!clear}" value="Clear"/>
+                <apex:commandButton action="{!cancel}" value="Cancel"/>
+            </apex:pageBlockButtons>
+        </apex:pageBlock>
+    </apex:form>
+</apex:page>
