@@ -1,0 +1,5 @@
+<apex:page controller="AccountListDemoController">
+    <apex:form >
+    	<c:AccountListComponent ></c:AccountListComponent>
+    </apex:form>
+</apex:page>
