@@ -1,0 +1,13 @@
+<apex:page controller="OppAmountSumController">
+    <apex:form >
+    	<apex:pageBlock >
+        	<apex:pageBlockSection >
+            	<apex:pageBlockTable value="{!SumOfAmountByAccountId}" var="s">
+                	<apex:column value="{!s['AccountId']}"/>
+                    <apex:column value="{!s['expr0']}"/>
+                </apex:pageBlockTable>
+            </apex:pageBlockSection>
+        </apex:pageBlock>
+    </apex:form>
+    
+</apex:page>
