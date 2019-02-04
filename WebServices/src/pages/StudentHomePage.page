@@ -1,0 +1,29 @@
+<apex:page controller="StudentHomeController">
+    
+    <apex:form >
+    	<apex:pageBlock >
+        	<apex:pageBlockSection title="Student List" columns="1">
+            	<apex:pageBlockTable value="{!students}" var="s">
+                	<apex:column value="{!s.Name}"></apex:column>
+                    <apex:column value="{!s.Last_Name__c}"/>
+                    <apex:column value="{!s.Sex__c}"/>
+                   	<!-- <apex:column value="{!s.Class__r.Name}"/>-->
+                    <apex:column >
+                    	<apex:commandLink value="View" action="{!studentDetails}" reRender="studentDetail">
+                            <apex:param name="id" value="{!s.Id}" />
+                        </apex:commandLink>
+                    </apex:column>
+                </apex:pageBlockTable>
+            </apex:pageBlockSection>
+            <apex:outputPanel id="studentDetail">
+            	<apex:pageBlockSection rendered="{!showDetails}" title="Student Detail">
+                    <apex:inputField value="{!studentObj.Name}"/>
+                    <apex:inputField value="{!studentObj.Last_Name__c}"/>
+                    <apex:inputField value="{!studentObj.Sex__c}"/>
+                    <!-- <apex:inputField value="{!studentObj.Class__r.Name}"/>-->
+                    
+                </apex:pageBlockSection>
+            </apex:outputPanel>
+        </apex:pageBlock>
+    </apex:form>
+</apex:page>
